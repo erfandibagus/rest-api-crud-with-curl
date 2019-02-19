@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 18, 2019 at 05:06 PM
+-- Generation Time: Feb 19, 2019 at 06:25 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -65,10 +65,10 @@ CREATE TABLE `limits` (
 --
 
 INSERT INTO `limits` (`id`, `uri`, `count`, `hour_started`, `api_key`) VALUES
-(1, 'uri:api/mahasiswa/index:get', 58, 1550504519, 'rest1234'),
-(2, 'uri:api/mahasiswa/index:delete', 5, 1550504592, 'rest1234'),
-(3, 'uri:api/mahasiswa/index:post', 4, 1550503063, 'rest1234'),
-(4, 'uri:api/mahasiswa/index:put', 5, 1550503097, 'rest1234');
+(1, 'uri:api/mahasiswa/index:get', 32, 1550553779, 'rest1234'),
+(2, 'uri:api/mahasiswa/index:delete', 1, 1550553927, 'rest1234'),
+(3, 'uri:api/mahasiswa/index:post', 2, 1550553866, 'rest1234'),
+(4, 'uri:api/mahasiswa/index:put', 4, 1550553889, 'rest1234');
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,8 @@ INSERT INTO `mahasiswa` (`id`, `nrp`, `nama`, `email`, `jurusan`) VALUES
 (2, '023040123', 'Erik', 'erik@gmail.com', 'Teknik Industri'),
 (3, '043040321', 'Rommy Fauzi', 'rommy@gmail.com', 'Teknik Planologi'),
 (4, '033040023', 'Fajar Darmawan ', 'fajar@yahoo.com', 'Teknik Informatika'),
-(16, '123456789', 'Erfandi Bagus', 'email@erfandibagus.com', 'Teknik Informatika');
+(16, '123456789', 'Erfandi Bagus', 'email@erfandibagus.com', 'Teknik Informatika'),
+(17, '987654321', 'Pramudya Budiman', 'prambu@gmail.com', 'Teknik Informatika');
 
 --
 -- Indexes for dumped tables
@@ -137,7 +138,7 @@ ALTER TABLE `limits`
 -- AUTO_INCREMENT for table `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

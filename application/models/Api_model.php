@@ -3,17 +3,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Api_model extends CI_Model{
 
-    // Ambil Data
-    public function getMahasiswa($id = NULL)
+    // Ambil Semua Data
+    public function getAllMahasiswa($limit, $offset)
     {
-        if ($id === NULL) {
-            // Ambil Semua Data
-            $this->db->order_by('id', 'DESC');
-            return $this->db->get('mahasiswa')->result_array();
-        } else {
-            // Ambil Data Berdasarkan ID
-            return $this->db->where('id', $id)->get('mahasiswa')->result_array();
-        }
+        return $this->db->order_by('id', 'DESC')
+                        ->limit($limit, $offset)
+                        ->get('mahasiswa')->result_array();
+    }
+
+    // Ambil Data Mahasiswa Berdasarkan ID
+    public function getMahasiswa($id)
+    {
+        return $this->db->where('id', $id)->get('mahasiswa')->result_array();
+    }
+
+    // Menghitung Total Data
+    public function getTotalMhs()
+    {
+        return $this->db->get('mahasiswa')->num_rows();
     }
 
     // Menambahkan Data

@@ -11,7 +11,7 @@ class Mahasiswa extends REST_Controller{
     {
         parent::__construct();
         $this->load->model('api_model', 'mhs');
-        // Limit
+        // Limit untuk Akses API
         $this->methods['index_get']['limit']    = 1000;
         $this->methods['index_delete']['limit'] = 1000;
         $this->methods['index_post']['limit']   = 1000;
@@ -22,15 +22,73 @@ class Mahasiswa extends REST_Controller{
     public function index_get()
     {
         $id = $this->get('id');
+        // Untuk pagination
+        $limit = $this->get('limit');
+        $offset = $this->get('offset');
+
         if ($id === NULL) {
-            $query = $this->mhs->getMahasiswa();
-            if ($query) {
-                $response = [
-                    'status'    => TRUE,
-                    'data'      => $query
-                ];
-                $this->response($response, REST_Controller::HTTP_OK);
+            if ($limit === NULL || $limit == 0) { // Limit NULL atau 0
+                if ($offset === NULL || $offset == 0) { // Offset NULL atau 0
+                    // Jika limit dan offset NULL atau 0
+                    $query = $this->mhs->getAllMahasiswa(5,0);
+                    if ($query) {
+                        $response = [
+                            'status'    => TRUE,
+                            'total'     => $this->mhs->getTotalMhs(),
+                            'halaman'   => [
+                                'limit'     => 5,
+                                'offset'    => 0,
+                            ],
+                            'data'      => $query
+                        ];
+                    }
+                } else {
+                    // Jika limit NULL atau 0 dan offset tidak NULL atau 0
+                    $query = $this->mhs->getAllMahasiswa(5,$offset);
+                    if ($query) {
+                        $response = [
+                            'status'    => TRUE,
+                            'total'     => $this->mhs->getTotalMhs(),
+                            'halaman'   => [
+                                'limit'     => 5,
+                                'offset'    => intval($offset),
+                            ],
+                            'data'      => $query
+                        ];
+                    }
+                }
+            } else {
+                if ($offset === NULL || $offset == 0) {
+                    // Jika limit tidak NULL atau 0 dan offset NULL atau 0
+                    $query = $this->mhs->getAllMahasiswa($limit,0);
+                    if ($query) {
+                        $response = [
+                            'status'    => TRUE,
+                            'total'     => $this->mhs->getTotalMhs(),
+                            'halaman'   => [
+                                'limit'     => intval($limit),
+                                'offset'    => 0,
+                            ],
+                            'data'      => $query
+                        ];
+                    }
+                } else {
+                    // Jika limit dan offset tidak NULL atau 0
+                    $query = $this->mhs->getAllMahasiswa($limit,$offset);
+                    if ($query) {
+                        $response = [
+                            'status'    => TRUE,
+                            'total'     => $this->mhs->getTotalMhs(),
+                            'halaman'   => [
+                                'limit'     => intval($limit),
+                                'offset'    => intval($offset),
+                            ],
+                            'data'      => $query
+                        ];
+                    }
+                }
             }
+            $this->response($response, REST_Controller::HTTP_OK);
         } else {
             $query = $this->mhs->getMahasiswa($id);
             if ($query) {

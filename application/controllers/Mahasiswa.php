@@ -20,7 +20,15 @@ class Mahasiswa extends CI_Controller {
 	// Menampilkan data
 	public function data()
 	{
-		$data['result'] = json_decode($this->curl->get());
+		$limit = 5; // Total data per halaman
+		$offset = $this->input->get('offset', TRUE);
+		if ($offset === NULL || $offset == 0) {
+			// Jika offset NULL atau 0
+			$data['result'] = json_decode($this->curl->getAllData($limit));
+		} else {
+			// Jika offset tidak NULL atau 0
+			$data['result'] = json_decode($this->curl->getAllData($limit, $offset));
+		}
 		$this->template->load('data', $data);
 	}
 
@@ -35,7 +43,7 @@ class Mahasiswa extends CI_Controller {
 	{
 		if ($id != NULL) {
 			// Jika ada ID
-			$result = json_decode($this->curl->get($id), TRUE);
+			$result = json_decode($this->curl->getData($id), TRUE);
 			if ($result['status']) {
 				// Jika data ditemukan
 				$data = array(
