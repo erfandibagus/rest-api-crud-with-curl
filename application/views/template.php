@@ -19,6 +19,9 @@
             <li class="nav-item active">
               <a class="nav-link" href="<?=base_url();?>"><i class="fa fa-home"></i> HOME</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?=base_url('api/mahasiswa');?>" target="_blank">REST API</a>
+            </li>
           </ul>
         </div>
       </div>
